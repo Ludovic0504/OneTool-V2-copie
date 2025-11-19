@@ -47,6 +47,11 @@ export default function Login() {
     if (confirmedBanner) setInfoMsg(confirmedBanner);
     
     if (errorParam) {
+      if (errorParam === "exchange") {
+        navigate("/login", { replace: true });
+        return;
+      }
+      
       switch (errorParam) {
         case "callback":
           setErrorMsg("Erreur lors de la validation de la connexion. Veuillez réessayer.");
@@ -293,8 +298,8 @@ export default function Login() {
 
           <button
             type="button"
-            onClick={signInWithGoogle}
-            disabled={mlLoading}
+            onClick={() => setErrorMsg("La connexion Google n'est pas disponible pour le moment.")}
+            disabled={true}
             className="w-full rounded-lg bg-white/5 border border-white/10 text-white font-medium py-3 hover:bg-white/10 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {mlLoading ? (

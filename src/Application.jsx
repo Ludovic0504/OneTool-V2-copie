@@ -33,11 +33,12 @@ export default function App() {
       <Route path="/login" element={<Connexion />} />
       <Route path="/logout" element={<RouteDeconnexion />} />
       <Route path="/auth/callback" element={<RappelAuth />} />
-      <Route path="/" element={<Accueil />} />
+      
 
       {/* Routes avec layout dashboard */}
       <Route element={<DashboardLayout />}>
         {/* Routes publiques avec layout */}
+        <Route path="/" element={<Accueil />} />
         <Route path="/lab" element={<Lab />} />
         <Route path="/a-savoir" element={<Asavoir />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />

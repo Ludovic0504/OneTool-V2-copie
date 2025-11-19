@@ -17,19 +17,19 @@ export default function Accueil() {
   const { session, signOut } = useAuth();
   const location = useLocation();
   const [currentWord, setCurrentWord] = useState(0);
-  const words = ["texte", "image", "vidéo"];
+  const words = ["attirer", "impacter", "convertir"];
 
   useEffect(() => {
-    const interval = setInterval(() => {
+      const interval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+     }, 3000);
+     return () => clearInterval(interval);
+   }, []);
 
   const features = [
-    { icon: FileText, label: "Texte", color: "cyan", path: "/prompt" },
-    { icon: ImageIcon, label: "Image", color: "violet", path: "/image" },
-    { icon: Video, label: "Vidéo", color: "yellow", path: "/video" },
+    { icon: FileText, label: "Script Gagnant", color: "cyan", path: "/prompt" },
+    { icon: ImageIcon, label: "Visuel d'accroche", color: "violet", path: "/image" },
+    { icon: Video, label: "Vidéo virale", color: "yellow", path: "/video" },
   ];
 
   const isActive = (path) => {
@@ -84,15 +84,16 @@ export default function Accueil() {
         ))}
       </div>
 
+      {/* 
       <header className="fixed top-0 left-0 right-0 z-50">
         <div className="absolute inset-0 bg-[#0C1116]/30 backdrop-blur-xl" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="group z-10 flex-shrink-0">
-            <span className="text-xl font-black bg-gradient-to-r from-cyan-300 via-violet-300 to-yellow-300 bg-clip-text text-transparent group-hover:from-cyan-200 group-hover:via-violet-200 group-hover:to-yellow-200 transition-all">
-              OneTool
-            </span>
-          </Link>
+          <div className="flex items-center justify-between h-16">
+            <Link to="/" className="group z-10 flex-shrink-0">
+              <span className="text-xl font-black bg-gradient-to-r from-cyan-300 via-violet-300 to-yellow-300 bg-clip-text text-transparent group-hover:from-cyan-200 group-hover:via-violet-200 group-hover:to-yellow-200 transition-all">
+                OneTool
+              </span>
+            </Link>
 
             <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-8 flex-1">
               {navLinks.map((link) => {
@@ -154,41 +155,60 @@ export default function Accueil() {
           </div>
         </div>
       </header>
+      */}
 
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-24">
+      <div className="relative z-10 min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-24">
         <div className="max-w-5xl mx-auto text-center w-full">
           <div className="mb-10 sm:mb-14">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-6 leading-none tracking-tight">
-              <span className="text-gray-100 block mb-2">Créez votre</span>
-              <span className="relative inline-block">
-                <span 
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-6 leading-none tracking-tight text-gray-100">
+              Pour des vidéos qui vont{" "}
+  
+              {/* MOBILE : mot dans le h1 */}
+              <span className="inline md:hidden">
+                <span
                   key={currentWord}
-                  className="inline-block bg-gradient-to-r from-cyan-400 via-violet-400 to-yellow-400 bg-clip-text text-transparent animate-fadeIn"
-                  style={{
-                    backgroundSize: '200% 200%',
-                    animation: 'gradient 3s ease infinite'
-                  }}
+                  className="bg-gradient-to-r from-cyan-400 via-violet-400 to-yellow-400 bg-clip-text text-transparent animate-fadeIn"
                 >
                   {words[currentWord]}
                 </span>
-                <span className="inline-block w-1 h-12 sm:h-16 md:h-20 bg-emerald-400 ml-3 animate-blink" />
               </span>
+
+              {/* DESKTOP : mot en dessous comme avant */}
+              <span className="hidden md:block relative mt-4">
+                <span
+                  key={currentWord}
+                  className="inline-block bg-gradient-to-r from-cyan-400 via-violet-400 to-yellow-400 bg-clip-text text-transparent animate-fadeIn"
+                  style={{
+                    backgroundSize: "200% 200%",
+                    animation: "gradient 3s ease infinite",
+                  }}
+                >           
+                  {words[currentWord]}
+                </span>
+                <span className="inline-block w-1 h-12 bg-emerald-400 ml-3 animate-blink" />
+            </span>
             </h1>
+
             <p className="text-xl sm:text-2xl md:text-3xl text-gray-400 font-light mt-4">
-              avec l'intelligence artificielle
+              Sans équipe. Sans compétences. En seulement quelques minutes.
             </p>
           </div>
 
           <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16 max-w-2xl mx-auto">
-            {features.map((feature) => {
+            {features.map((feature, index) => {
               const Icon = feature.icon;
-              const isActive = words[currentWord] === feature.label.toLowerCase();
+
+               const isActiveDynamic = words[currentWord] === feature.label.toLowerCase();
+
+              // Nouveau fonctionnement : on garde la première carte en "active" visuelle
+              const isFeatureActive = index === currentWord;
+
               return (
                 <Link
                   key={feature.path}
                   to={feature.path}
                   className={`group relative flex flex-col items-center justify-center p-6 sm:p-8 rounded-2xl border-2 transition-all duration-500 ${
-                    isActive
+                    isFeatureActive
                       ? `border-${feature.color}-500/50 bg-${feature.color}-500/10 scale-110 shadow-[0_0_30px_rgba(var(--${feature.color}-500),0.3)]`
                       : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10 hover:scale-105'
                   }`}
@@ -198,7 +218,7 @@ export default function Accueil() {
                     '--yellow-500': '255, 234, 131'
                   }}
                 >
-                  {isActive && (
+                  {isFeatureActive && (
                     <div 
                       className={`absolute inset-0 rounded-2xl bg-${feature.color}-500/20 blur-xl animate-pulse`}
                       style={{ animationDuration: '2s' }}
@@ -206,13 +226,13 @@ export default function Accueil() {
                   )}
                   
                   <div className={`relative z-10 w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center mb-3 transition-all duration-500 ${
-                    isActive 
+                    isFeatureActive 
                       ? `bg-${feature.color}-500/20 border-2 border-${feature.color}-500/50`
                       : 'bg-white/5 border border-white/10 group-hover:bg-white/10'
                   }`}>
                     <Icon 
                       className={`w-6 h-6 sm:w-8 sm:h-8 transition-all duration-500 ${
-                        isActive 
+                        isFeatureActive 
                           ? `text-${feature.color}-300 scale-110`
                           : 'text-gray-400 group-hover:text-gray-200'
                       }`}
@@ -220,14 +240,14 @@ export default function Accueil() {
                   </div>
                   
                   <span className={`text-sm sm:text-base font-medium transition-all duration-500 ${
-                    isActive 
+                    isFeatureActive 
                       ? `text-${feature.color}-300`
                       : 'text-gray-400 group-hover:text-gray-200'
                   }`}>
                     {feature.label}
                   </span>
 
-                  {isActive && (
+                  {isFeatureActive && (
                     <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-progress" />
                   )}
                 </Link>
@@ -236,8 +256,7 @@ export default function Accueil() {
           </div>
 
           <p className="text-base sm:text-lg text-gray-500 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
-            Transformez vos idées en contenu professionnel en quelques secondes. 
-            Que ce soit un texte, une image ou une vidéo, l'IA fait le travail pour vous.
+            L’outil IA des entrepreneurs qui veulent publier tous les jours sur TikTok, Reels et Shorts — sans y passer des heures.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -245,7 +264,7 @@ export default function Accueil() {
               to={session ? "/prompt" : "/login"}
               className="group inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-xl hover:from-emerald-400 hover:to-emerald-300 transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:scale-105 active:scale-95"
             >
-              <span>{session ? "Commencer" : "Se connecter"}</span>
+              <span>{session ? "Commencer" : "Créer ma première vidéo"}</span>
               <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" />
             </Link>
           </div>

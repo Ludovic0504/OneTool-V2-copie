@@ -6,8 +6,8 @@ import { Home, Sparkles, FileText, Image as ImageIcon, Video, Info, X } from "lu
 const links = [
   { path: "/", label: "Accueil", icon: Home },
   { path: "/lab", label: "Nouveautés", icon: Sparkles },
-  { path: "/prompt", label: "Créer un texte", icon: FileText },
-  { path: "/image", label: "Créer une image", icon: ImageIcon },
+  { path: "/prompt", label: "Créer un script", icon: FileText },
+  { path: "/image", label: "Créer une visuel", icon: ImageIcon },
   { path: "/video", label: "Créer une vidéo", icon: Video },
   { path: "/a-savoir", label: "Informations utiles", icon: Info },
 ];
